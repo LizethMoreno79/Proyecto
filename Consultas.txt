@@ -1,0 +1,52 @@
+
+######## CONSULTA 1
+CREATE  VIEW Consulta_1 AS
+SELECT aerolineas.nombre_aerolinea , vuelos.fecha
+FROM vuelos INNER JOIN aviones ON aviones.id_avion= vuelos.id_avion INNER JOIN aerolineas ON aerolineas.id_aerolinea= aviones.aerolinea 
+WHERE vuelos.fecha="2019-11-07"
+
+######## CONSULTA 2
+CREATE VIEW consulta_2 AS 
+SELECT aerolineas.nombre_aerolinea , aviones.modelo
+FROM aviones INNER JOIN aerolineas ON aviones.aerolinea= aerolineas.id_aerolinea
+  WHERE aerolineas.nombre_aerolinea="Avianca"
+
+######## CONSULTA 3
+CREATE VIEW consulta_3 AS
+SELECT pasajero.id_vuelo, pasajero.nombre, pasajero.asiento 	
+FROM pasajero WHERE pasajero.id_vuelo= "VUE118"
+
+######## CONSULTA 4
+CREATE VIEW consulta_4 AS
+SELECT tripulacion.id_vuelo, tripulacion.Nombre, tripulacion.cargo
+FROM tripulacion WHERE tripulacion.id_vuelo="VUE111"
+
+######## CONSULTA 5
+CREATE VIEW consulta_5 AS
+SELECT aerolineas.nombre_aerolinea, vuelos.destino 
+FROM vuelos INNER JOIN aviones ON vuelos.id_avion=aviones.id_avion INNER JOIN aerolineas ON aviones.aerolinea=aerolineas.id_aerolinea
+WHERE aerolineas.nombre_aerolinea="Avianca"
+
+######## CONSULTA 6
+CREATE VIEW consulta_6 AS
+SELECT pasajero.id_vuelo, pasajero.nombre, pasajero.equipaje
+FROM pasajero
+WHERE pasajero.id_vuelo="VUE116"
+
+######## CONSULTA 7
+CREATE VIEW consulta_7 AS
+SELECT aerolineas.nombre_aerolinea, COUNT(aviones.aerolinea) AS numero_aviones
+FROM aviones INNER JOIN aerolineas ON aviones.aerolinea=aerolineas.id_aerolinea
+GROUP BY aerolineas.nombre_aerolinea
+
+######## CONSULTA 8
+CREATE VIEW consulta_8 AS
+SELECT pasajero.id_vuelo, COUNT(pasajero.equipaje) AS total_equipaje
+FROM pasajero INNER JOIN vuelos ON pasajero.id_vuelo=vuelos.id_vuelo
+GROUP BY pasajero.id_vuelo
+
+######## CONSULTA 9
+CREATE VIEW consulta_9 AS
+SELECT vuelos.destino, AVG(pasajero.equipaje) AS promedio 
+FROM vuelos INNER JOIN pasajero ON vuelos.id_vuelo=pasajero.id_vuelo
+GROUP BY vuelos.destino
